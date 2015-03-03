@@ -73,7 +73,7 @@ public class ProductServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String productid = request.getParameter("id");
-     //   productid = request.getServletPath();
+        //   productid = request.getServletPath();
         try {
             PrintWriter out = response.getWriter();
             // processRequest(request, response);
@@ -161,11 +161,10 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-      //  super.doDelete(req, resp); //To change body of generated methods, choose Tools | Templates.
-      try {
+        //  super.doDelete(req, resp); //To change body of generated methods, choose Tools | Templates.
+        try {
           //  super.doPut(req, resp); //To change body of generated methods, choose Tools | Templates.
 
-           
             int productid = Integer.parseInt(req.getParameter("id"));
 
             String query = "delete from product  WHERE ProductID = ?";
@@ -173,7 +172,7 @@ public class ProductServlet extends HttpServlet {
             System.out.println(query);
 
             pstmt.setInt(1, productid);
-         
+
             int updates = pstmt.executeUpdate();
 
             if (updates <= 0) {
@@ -181,30 +180,22 @@ public class ProductServlet extends HttpServlet {
                 resp.setStatus(500);
             } else {
 
-                PrintWriter out = resp.getWriter();        
+                PrintWriter out = resp.getWriter();
                 out.println("");
-
-               
 
             }
 
-       
-    }
-    catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(ProductServlet.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
-    }              
-           
-      
-      
-      
-      
+        }
+
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-          //  super.doPut(req, resp); //To change body of generated methods, choose Tools | Templates.
+            //  super.doPut(req, resp); //To change body of generated methods, choose Tools | Templates.
 
             String name = req.getParameter("name");
             System.out.println(req.getParameter("description"));
@@ -228,56 +219,47 @@ public class ProductServlet extends HttpServlet {
                 resp.setStatus(500);
             } else {
 
-               
-               resp.sendRedirect("http://localhost:8080/webServletA03/products?id=" + productid);
-               
-
-               
+                resp.sendRedirect("http://localhost:8080/webServletA03/products?id=" + productid);
 
             }
 
-       
-    }
-    catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(ProductServlet.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
+        }
+
     }
 
-}
-
-/**
- * Returns a short description of the servlet.
- *
- * @return a String containing servlet description
- */
-@Override
-        public String getServletInfo() {
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
-    
     @Override
-        public void init(ServletConfig config) throws ServletException {
+    public void init(ServletConfig config) throws ServletException {
         connection = getConnection();
-        
 
     }
-    
+
     @Override
-        public void destroy(){
-      if (connection != null)
-          try {
-              connection.close();
-              connection = null;
-      
+    public void destroy() {
+        if (connection != null) {
+            try {
+                connection.close();
+                connection = null;
 
-} catch (SQLException ex) {
-          Logger.getLogger(ProductServlet.class  
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductServlet.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 
-.getName()).log(Level.SEVERE, null, ex);
-      }
-   }
-    
     private Connection getConnection() {
         Connection connection = null;
         try {
@@ -289,33 +271,32 @@ public class ProductServlet extends HttpServlet {
         String url = "jdbc:mysql://localhost:3306/cpd4414assign3";
         try {
             connection = DriverManager.getConnection(url,
-                    "usertest", "123456");            
+                    "usertest", "123456");
         } catch (SQLException e) {
             System.out.println("Failed to Connect! " + e.getMessage());
             e.printStackTrace();
         }
         return connection;
     }
-    
-    
+/*
     private void doStatement() {
-        try {            
-           
-            String query = "SELECT * FROM sample";        
+        try {
+
+            String query = "SELECT * FROM sample";
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 System.out.printf("%s\t%s\n", rs.getString("name"), rs.getString("age"));
-            }        
-            
+            }
+
         } catch (SQLException e) {
             System.err.println("Error SELECTing: " + e.getMessage());
-        }         
+        }
     }
-    
+
     private void doPreparedStatement() {
-        try {            
-            String query = "SELECT * FROM sample WHERE id = ?";        
+        try {
+            String query = "SELECT * FROM sample WHERE id = ?";
             PreparedStatement pstmt = connection.prepareStatement(query);
             int[] idList = {1, 3};
             for (int id : idList) {
@@ -323,14 +304,14 @@ public class ProductServlet extends HttpServlet {
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
                     System.out.printf("%s\t%s\n", rs.getString("name"), rs.getString("age"));
-                }        
+                }
             }
-         
+
         } catch (SQLException e) {
             System.err.println("Error SELECTing: " + e.getMessage());
-        }         
-    }
-   /* 
+        }
+    }*/
+    /* 
     public static void doCRUDExample() {
         try {            
             Connection conn = getConnection();
@@ -407,6 +388,6 @@ public class ProductServlet extends HttpServlet {
             System.err.println("Error with SQL: " + e.getMessage());
         }  
     }
-    */
-    
+     */
+
 }
